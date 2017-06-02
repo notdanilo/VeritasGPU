@@ -1,0 +1,6 @@
+[submodule "modules/VeritasMath"]
+	path = modules/VeritasMath
+	url = https://www.github.com/Silexars/VeritasMath
+[submodule "modules/VeritasOpenGL"]
+	path = modules/VeritasOpenGL
+	url = https://www.github.com/Silexars/VeritasOpenGL
