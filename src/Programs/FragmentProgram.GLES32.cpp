@@ -11,8 +11,7 @@ using namespace Data;
 #include <iostream>
 
 uint32 createFragmentShaderProgram(const String& icode) {
-    String code = String("#version 310 es\n")
-                + String("precision highp float;")
+    String code = String("#version 320 es\n")
                 + icode;
 
     char *source = (char*) code.getBuffer().getData();

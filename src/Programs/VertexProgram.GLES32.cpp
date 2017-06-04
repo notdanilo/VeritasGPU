@@ -11,9 +11,9 @@ using namespace Data;
 #include <iostream>
 
 uint32 createVertexShaderProgram(const String& icode) {
-    String code = String("#version 310 es\n")
-                + String("#extension GL_OES_shader_io_blocks : enable\n")
-                + String("precision highp float;")
+    String code = String("#version 320 es\n")
+                #warning https://stackoverflow.com/questions/5366416/in-opengl-es-2-0-glsl-where-do-you-need-precision-specifiers
+                // + String("precision highp float;")
                 + icode;
 
     char *source = (char*) code.getBuffer().getData();

@@ -11,8 +11,7 @@ using namespace Math;
 #include <iostream>
 
 uint32 createComputeShaderProgram(const String& icode) {
-    String code = String("#version 310 es\n")
-                + String("precision highp float;")
+    String code = String("#version 320 es\n")
                 + icode;
 
     char *source = (char*) code.getBuffer().getData();
@@ -46,10 +45,12 @@ void ComputeProgram::compute(const uvec2 &work, Bindings bps) {
 }
 
 void ComputeProgram::compute(const uvec3& work, Bindings bps) {
-    for (const BindingPoint& bp : bps) glBindBufferBase(GL_SHADER_STORAGE_BUFFER, bp.getLocation(), bp.getResource().getID());
+    for (auto bp : bps) bp.bind();
     glUseProgram(getID());
+
     glDispatchCompute(work.x / groupSize.x, work.y / groupSize.y, work.z / groupSize.z);
-    for (const BindingPoint& bp : bps) glBindBufferBase(GL_SHADER_STORAGE_BUFFER, bp.getLocation(), bp.getResource().getID());
+
+    for (auto bp : bps) bp.unbind();
     glUseProgram(0);
 }
 

@@ -3,7 +3,10 @@
 using namespace Veritas;
 using namespace GPU;
 
-BindingPoint::BindingPoint(const Resource &resource, uint32 location) : resource(resource), location(location) {}
+BindingPoint::BindingPoint(std::function<void ()> bind, std::function<void ()> unbind)
+    : fbind(bind)
+    , funbind(unbind)
+{}
 
-const Resource& BindingPoint::getResource() const { return resource; }
-uint32 BindingPoint::getLocation() const { return location; }
+void BindingPoint::bind() const { fbind(); }
+void BindingPoint::unbind() const { funbind(); }

@@ -38,15 +38,10 @@ RenderProgram::~RenderProgram() {
 
 void RenderProgram::points(uint32 ammount, Bindings bps) {
     glBindProgramPipeline(getID());
-    for (auto& bp : bps) {
-        glBindBuffer(GL_ARRAY_BUFFER, bp.getResource().getID());
-
-        glVertexAttribPointer(bp.getLocation(), vp.getLocationSize(bp.getLocation()), GL_FLOAT, false, 0, 0);
-        glEnableVertexAttribArray(bp.getLocation());
-    }
+    for (auto bp : bps) bp.bind();
 
     glDrawArrays(GL_POINTS, 0, ammount);
 
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    for (auto bp : bps) bp.unbind();
     glBindProgramPipeline(0);
 }

@@ -2,17 +2,19 @@
 
 #include "Resource.h"
 
+#include <Veritas/Math/Math.h>
+
 namespace Veritas {
     namespace GPU {
+        using namespace Math;
         class BindingPoint {
             public:
-                BindingPoint(const Resource& resource, uint32 location);
-
-                const Resource& getResource() const;
-                uint32 getLocation() const;
+                void bind() const;
+                void unbind() const;
+            protected:
+                BindingPoint(std::function<void(void)> bind, std::function<void(void)> unbind);
             private:
-                const Resource& resource;
-                const uint32 location;
+                const std::function<void(void)> fbind, funbind;
         };
     }
 }
