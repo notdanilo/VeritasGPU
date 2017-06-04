@@ -10,11 +10,6 @@ namespace Veritas {
                 public:
                     VertexProgram(const Data::String& code);
                     ~VertexProgram();
-
-                    uint32 getLocationSize(uint32 location) const;
-                private:
-                    friend class RenderProgram;
-                    std::vector<std::pair<int32, uint32>> attributes;
             };
         }
     }
