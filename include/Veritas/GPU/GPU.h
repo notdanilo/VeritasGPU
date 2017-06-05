@@ -7,4 +7,5 @@
 
 #include "BufferBinding.h"
 #include "VertexBinding.h"
+#include "IndexBinding.h"
 #include "UniformBinding.h"
