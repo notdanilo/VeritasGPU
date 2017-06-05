@@ -10,10 +10,10 @@
 namespace Veritas {
     namespace GPU {
         namespace Programs {
-            class RenderProgram : public Resource {
+            class RasterProgram : public Resource {
                 public:
-                    RenderProgram(const VertexProgram& vp, const FragmentProgram& fp);
-                    ~RenderProgram();
+                    RasterProgram(const VertexProgram& vp, const FragmentProgram& fp);
+                    ~RasterProgram();
 
                     typedef std::initializer_list<BindingPoint> Bindings;
                     void points(uint32 npoints, bool depthTesting, Bindings bindings = {});

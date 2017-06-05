@@ -1,6 +1,6 @@
 #pragma once
 
-#include "RenderProgram.h"
+#include "RasterProgram.h"
 
 #include "ClearProgram.h"
 

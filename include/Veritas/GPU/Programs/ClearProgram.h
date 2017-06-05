@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Veritas/Math/Math.h>
-#include "RenderProgram.h"
 
 namespace Veritas {
     namespace GPU {

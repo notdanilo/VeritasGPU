@@ -1,4 +1,4 @@
-#include <Veritas/GPU/Programs/RenderProgram.h>
+#include <Veritas/GPU/Programs/RasterProgram.h>
 
 #include <GLES3/gl32.h>
 
@@ -16,7 +16,7 @@ uint32 createProgramPipeline() {
     return program;
 }
 
-RenderProgram::RenderProgram(const VertexProgram& vp, const FragmentProgram &fp) : Resource(createProgramPipeline()), vp(vp), fp(fp) {
+RasterProgram::RasterProgram(const VertexProgram& vp, const FragmentProgram &fp) : Resource(createProgramPipeline()), vp(vp), fp(fp) {
     glUseProgramStages(getID(), GL_VERTEX_SHADER_BIT, vp.getID());
     glUseProgramStages(getID(), GL_FRAGMENT_SHADER_BIT, fp.getID());
 
@@ -32,11 +32,11 @@ RenderProgram::RenderProgram(const VertexProgram& vp, const FragmentProgram &fp)
     }
 }
 
-RenderProgram::~RenderProgram() {
+RasterProgram::~RasterProgram() {
     glDeleteProgramPipelines(1, &getID());
 }
 
-void RenderProgram::points(uint32 npoints, bool depthTesting, Bindings bps) {
+void RasterProgram::points(uint32 npoints, bool depthTesting, Bindings bps) {
     glBindProgramPipeline(getID());
     for (auto bp : bps) bp.bind();
 
@@ -50,7 +50,7 @@ void RenderProgram::points(uint32 npoints, bool depthTesting, Bindings bps) {
     glBindProgramPipeline(0);
 }
 
-void RenderProgram::lines(uint32 nlines, bool depthTesting, Bindings bps) {
+void RasterProgram::lines(uint32 nlines, bool depthTesting, Bindings bps) {
     glBindProgramPipeline(getID());
     for (auto bp : bps) bp.bind();
 
@@ -64,7 +64,7 @@ void RenderProgram::lines(uint32 nlines, bool depthTesting, Bindings bps) {
     glBindProgramPipeline(0);
 }
 
-void RenderProgram::lines(uint32 nlines, bool depthTesting, const IndexBinding &indices, Bindings bps) {
+void RasterProgram::lines(uint32 nlines, bool depthTesting, const IndexBinding &indices, Bindings bps) {
     glBindProgramPipeline(getID());
     for (auto bp : bps) bp.bind();
 
@@ -87,7 +87,7 @@ void RenderProgram::lines(uint32 nlines, bool depthTesting, const IndexBinding &
     glBindProgramPipeline(0);
 }
 
-void RenderProgram::triangles(uint32 ntriangles, bool depthTesting, bool faceCulling, const IndexBinding &indices, Bindings bps) {
+void RasterProgram::triangles(uint32 ntriangles, bool depthTesting, bool faceCulling, const IndexBinding &indices, Bindings bps) {
     glBindProgramPipeline(getID());
     for (auto bp : bps) bp.bind();
 
