@@ -7,7 +7,7 @@ namespace Veritas {
         namespace Textures {
             class Texture : public Resource {
                 public:
-                    enum ELEMENTS { /*ALPHA, UV, RGB,*/ RGBA };
+                    enum ELEMENTS { DEPTH, /*UV, RGB,*/ RGBA };
                     enum TYPE { FLOAT32 /*, UINT8 */ };
                     enum SPACE { ONE_DIMENSION, TWO_DIMENSION, THREE_DIMENSION, CUBE_PROJECTION };
 

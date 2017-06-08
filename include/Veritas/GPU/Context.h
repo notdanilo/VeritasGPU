@@ -3,6 +3,8 @@
 #include <Veritas/Data/String.h>
 #include <Veritas/OpenGL/OpenGLESContext.h>
 
+#include "FrameBuffer.h"
+
 namespace Veritas {
     namespace GPU {
         class Context {
@@ -12,8 +14,11 @@ namespace Veritas {
 
                 void makeCurrent();
                 void swapBuffers();
+
+                FrameBuffer& getMainFrameBuffer();
             private:
                 OpenGL::OpenGLESContext* context;
+                FrameBuffer framebuffer;
 
                     /*
                     void makeCurrent();

@@ -13,7 +13,11 @@ ImageBinding::ImageBinding(uint32 location, const Texture &texture, PERMISSION i
             if (texture.getElements() == Texture::RGBA) {
                 if (texture.getType() == Texture::FLOAT32)
                     format = GL_RGBA32F;
+            } else if (texture.getElements() == Texture::DEPTH) {
+                if (texture.getType() == Texture::FLOAT32)
+                    format = GL_DEPTH_COMPONENT32F;
             }
+
             uint32 opermission = 0;
             if (ipermission&WRITE && ipermission&READ)
                 opermission = GL_READ_WRITE;

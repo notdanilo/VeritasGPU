@@ -5,6 +5,8 @@
 #include "Programs/Programs.h"
 #include "Textures/Textures.h"
 
+#include "FrameBuffer.h"
+
 #include "BufferBinding.h"
 #include "VertexBinding.h"
 #include "IndexBinding.h"

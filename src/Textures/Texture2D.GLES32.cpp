@@ -10,19 +10,27 @@ Texture2D::Texture2D(uint32 width, uint32 height, ELEMENTS elements, TYPE type, 
     , width(width)
     , height(height)
 {
-    uint32 oelements = 0;
-    uint32 otype = 0;
-    uint32 oformat = 0;
-    if (elements == RGBA) {
-        oelements = GL_RGBA;
+    uint32 dataFormat = 0;
+    uint32 dataType = 0;
+    uint32 internalFormat = 0;
+
+    if (elements == DEPTH) {
         if (type == FLOAT32) {
-            otype = GL_FLOAT;
-            oformat = GL_RGBA32F;
+            internalFormat = GL_DEPTH_COMPONENT32F;
+            dataFormat = GL_DEPTH_COMPONENT;
+            dataType = GL_FLOAT;
+        }
+    } else if (elements == RGBA) {
+        if (type == FLOAT32) {
+            internalFormat = GL_RGBA32F;
+            dataFormat = GL_RGBA;
+            dataType = GL_FLOAT;
         }
     }
 
+
     glBindTexture(GL_TEXTURE_2D, getID());
-    glTexStorage2D(GL_TEXTURE_2D, 1, oformat, width, height);
-    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, oelements, otype, data);
+    glTexStorage2D(GL_TEXTURE_2D, 1, internalFormat, width, height);
+    if (data) glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, dataFormat, dataType, data);
     glBindTexture(GL_TEXTURE_2D, 0);
 }

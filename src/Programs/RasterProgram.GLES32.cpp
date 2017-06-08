@@ -36,7 +36,9 @@ RasterProgram::~RasterProgram() {
     glDeleteProgramPipelines(1, &getID());
 }
 
-void RasterProgram::points(uint32 npoints, bool depthTesting, Bindings bps) {
+void RasterProgram::points(FrameBuffer& fb, uint32 npoints, bool depthTesting, Bindings bps) {
+    glBindFramebuffer(GL_FRAMEBUFFER, fb.getID());
+
     glBindProgramPipeline(getID());
     for (auto bp : bps) bp.bind();
 
@@ -48,9 +50,13 @@ void RasterProgram::points(uint32 npoints, bool depthTesting, Bindings bps) {
 
     for (auto bp : bps) bp.unbind();
     glBindProgramPipeline(0);
+
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void RasterProgram::lines(uint32 nlines, bool depthTesting, Bindings bps) {
+void RasterProgram::lines(FrameBuffer& fb, uint32 nlines, bool depthTesting, Bindings bps) {
+    glBindFramebuffer(GL_FRAMEBUFFER, fb.getID());
+
     glBindProgramPipeline(getID());
     for (auto bp : bps) bp.bind();
 
@@ -62,9 +68,13 @@ void RasterProgram::lines(uint32 nlines, bool depthTesting, Bindings bps) {
 
     for (auto bp : bps) bp.unbind();
     glBindProgramPipeline(0);
+
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void RasterProgram::lines(uint32 nlines, bool depthTesting, const IndexBinding &indices, Bindings bps) {
+void RasterProgram::lines(FrameBuffer& fb, uint32 nlines, bool depthTesting, const IndexBinding &indices, Bindings bps) {
+    glBindFramebuffer(GL_FRAMEBUFFER, fb.getID());
+
     glBindProgramPipeline(getID());
     for (auto bp : bps) bp.bind();
 
@@ -85,9 +95,13 @@ void RasterProgram::lines(uint32 nlines, bool depthTesting, const IndexBinding &
 
     for (auto bp : bps) bp.unbind();
     glBindProgramPipeline(0);
+
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void RasterProgram::triangles(uint32 ntriangles, bool depthTesting, bool faceCulling, const IndexBinding &indices, Bindings bps) {
+void RasterProgram::triangles(FrameBuffer& fb, uint32 ntriangles, bool depthTesting, bool faceCulling, const IndexBinding &indices, Bindings bps) {
+    glBindFramebuffer(GL_FRAMEBUFFER, fb.getID());
+
     glBindProgramPipeline(getID());
     for (auto bp : bps) bp.bind();
 
@@ -110,4 +124,6 @@ void RasterProgram::triangles(uint32 ntriangles, bool depthTesting, bool faceCul
 
     for (auto bp : bps) bp.unbind();
     glBindProgramPipeline(0);
+
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }

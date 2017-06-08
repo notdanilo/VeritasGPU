@@ -6,6 +6,7 @@
 
 #include "../BindingPoint.h"
 #include "../IndexBinding.h"
+#include "../FrameBuffer.h"
 
 namespace Veritas {
     namespace GPU {
@@ -16,10 +17,10 @@ namespace Veritas {
                     ~RasterProgram();
 
                     typedef std::initializer_list<BindingPoint> Bindings;
-                    void points(uint32 npoints, bool depthTesting, Bindings bindings = {});
-                    void lines(uint32 nlines, bool depthTesting, Bindings bindings = {});
-                    void lines(uint32 nlines, bool depthTesting, const IndexBinding& indices, Bindings bindings = {});
-                    void triangles(uint32 ntriangles, bool depthTesting, bool faceCulling, const IndexBinding& indices, Bindings bindings = {});
+                    void points(FrameBuffer& fb, uint32 npoints, bool depthTesting, Bindings bindings = {});
+                    void lines(FrameBuffer& fb, uint32 nlines, bool depthTesting, Bindings bindings = {});
+                    void lines(FrameBuffer& fb, uint32 nlines, bool depthTesting, const IndexBinding& indices, Bindings bindings = {});
+                    void triangles(FrameBuffer& fb, uint32 ntriangles, bool depthTesting, bool faceCulling, const IndexBinding& indices, Bindings bindings = {});
             private:
                     const VertexProgram& vp;
                     const FragmentProgram& fp;

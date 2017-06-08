@@ -8,7 +8,9 @@ using namespace OpenGL;
 
 using namespace Data;
 
-Context::Context(uint64 windowHandle, const String &version) {
+Context::Context(uint64 windowHandle, const String &version) :
+    framebuffer(0)
+{
     context = new OpenGLESContext(windowHandle, 3, 2);
 }
 Context::~Context() {
@@ -21,3 +23,5 @@ void Context::makeCurrent() {
 void Context::swapBuffers() {
     context->swapBuffers();
 }
+
+FrameBuffer& Context::getMainFrameBuffer() { return framebuffer; }
