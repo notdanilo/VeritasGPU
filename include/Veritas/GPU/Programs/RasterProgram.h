@@ -8,6 +8,8 @@
 #include "../IndexBinding.h"
 #include "../FrameBuffer.h"
 
+#include <list>
+
 namespace Veritas {
     namespace GPU {
         namespace Programs {
@@ -16,7 +18,7 @@ namespace Veritas {
                     RasterProgram(const VertexProgram& vp, const FragmentProgram& fp);
                     ~RasterProgram();
 
-                    typedef std::initializer_list<BindingPoint> Bindings;
+                    typedef std::list<BindingPoint> Bindings;
                     void points(FrameBuffer& fb, uint32 npoints, bool depthTesting, Bindings bindings = {});
                     void lines(FrameBuffer& fb, uint32 nlines, bool depthTesting, Bindings bindings = {});
                     void lines(FrameBuffer& fb, uint32 nlines, bool depthTesting, const IndexBinding& indices, Bindings bindings = {});

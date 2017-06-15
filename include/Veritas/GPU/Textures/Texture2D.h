@@ -11,7 +11,7 @@ namespace Veritas {
                     Texture2D(uint32 width, uint32 height, ELEMENTS elements, TYPE type, const void* data = 0);
 
                     uint32 getWidth() const;
-                    uint32 getHeight() const;                    
+                    uint32 getHeight() const;
                 private:
                     uint32 width, height;                    
             };

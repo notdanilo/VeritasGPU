@@ -5,3 +5,5 @@
 #include "ClearProgram.h"
 
 #include "ComputeProgram.h"
+
+#include "VoxelProgram.h"

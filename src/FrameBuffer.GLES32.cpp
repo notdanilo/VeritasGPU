@@ -12,16 +12,21 @@ uint32 createFrameBuffer() {
     return framebuffer;
 }
 
-FrameBuffer::FrameBuffer(uint32 id)
+FrameBuffer::FrameBuffer(uint32 id, uint32 width, uint32 height)
     : Resource(id)
+    , width(width)
+    , height(height)
     , colorBuffer(0)
     , depthBuffer(0)
     , stencilBuffer(0)
 {}
-FrameBuffer::FrameBuffer() : FrameBuffer(createFrameBuffer()) {}
+FrameBuffer::FrameBuffer(uint32 width, uint32 height) : FrameBuffer(createFrameBuffer(), width, height) {}
 FrameBuffer::~FrameBuffer() {
     if (getID()) glDeleteBuffers(1, &getID());
 }
+
+uint32 FrameBuffer::getWidth() const { return width; }
+uint32 FrameBuffer::getHeight() const { return height; }
 
 void FrameBuffer::setColorBuffer(Texture2D& texture) {
     colorBuffer = &texture;

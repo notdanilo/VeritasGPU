@@ -34,3 +34,6 @@ Texture2D::Texture2D(uint32 width, uint32 height, ELEMENTS elements, TYPE type, 
     if (data) glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, dataFormat, dataType, data);
     glBindTexture(GL_TEXTURE_2D, 0);
 }
+
+uint32 Texture2D::getWidth() const { return width; }
+uint32 Texture2D::getHeight() const { return height; }

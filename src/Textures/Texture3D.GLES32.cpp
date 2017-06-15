@@ -27,3 +27,7 @@ Texture3D::Texture3D(uint32 width, uint32 height, uint32 depth, ELEMENTS element
     glTexSubImage3D(GL_TEXTURE_3D, 0, 0, 0, 0, width, height, depth, oelements, otype, data);
     glBindTexture(GL_TEXTURE_3D, 0);
 }
+
+uint32 Texture3D::getWidth() const { return width; }
+uint32 Texture3D::getHeight() const { return height; }
+uint32 Texture3D::getDepth() const { return depth; }
