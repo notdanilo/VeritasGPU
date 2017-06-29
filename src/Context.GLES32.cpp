@@ -23,15 +23,27 @@ Context::Context(uint64 windowHandle, const String &version) :
 
     OpenGLESContext::pop();
 }
+Context::Context(Context &&move)
+    : framebuffer(move.framebuffer)
+    , context(move.context)
+{
+    move.framebuffer = 0;
+    move.context = 0;
+}
+
 Context::~Context() {
+    delete framebuffer;
     delete context;
 }
 
-void Context::makeCurrent() {
+Context &Context::makeCurrent() {
     context->makeCurrent();
+    return *this;
 }
-void Context::swapBuffers() {
+
+Context& Context::swapBuffers() {
     context->swapBuffers();
+    return *this;
 }
 
 FrameBuffer& Context::getMainFrameBuffer() { return *framebuffer; }

@@ -10,10 +10,15 @@ namespace Veritas {
         class Context {
             public:
                 Context(uint64 windowHandle, const Data::String& version);
+                Context(Context&& move);
+                Context(const Context& copy) = delete;
                 ~Context();
 
-                void makeCurrent();
-                void swapBuffers();
+                void operator=(Context&& move);
+                void operator=(const Context& copy);
+
+                Context& makeCurrent();
+                Context &swapBuffers();
 
                 FrameBuffer& getMainFrameBuffer();
             private:
