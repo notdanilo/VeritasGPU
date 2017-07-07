@@ -2,23 +2,26 @@
 
 #include <GLES3/gl32.h>
 
+#include <iostream>
+
 using namespace Veritas;
 using namespace GPU;
 
-using namespace Data;
+using namespace Programs;
+
 using namespace Math;
 
-#include <iostream>
+using std::string;
 
-uint32 createComputeShaderProgram(const String& icode) {
-    String code = String("#version 320 es\n")
+uint32 createComputeShaderProgram(const string& icode) {
+    string code = string("#version 320 es\n")
                 + icode;
 
-    char *source = (char*) code.getBuffer().getData();
+    const char *source = code.c_str();
     return glCreateShaderProgramv(GL_COMPUTE_SHADER, 1, &source);
 }
 
-ComputeProgram::ComputeProgram(const String &icode) : Resource(createComputeShaderProgram(icode)) {
+ComputeProgram::ComputeProgram(const string &icode) : Program(createComputeShaderProgram(icode)) {
     int32 linked;
     glGetProgramiv(getID(), GL_LINK_STATUS, &linked);
     if (!linked) {

@@ -8,9 +8,9 @@ using namespace GPU;
 
 using namespace OpenGL;
 
-using namespace Data;
+using std::string;
 
-Context::Context(uint64 windowHandle, const String &version) :
+Context::Context(uint64 windowHandle, const string &version) :
     framebuffer(0)
 {
     context = new OpenGLESContext(windowHandle, 3, 2);
@@ -41,7 +41,8 @@ Context &Context::makeCurrent() {
     return *this;
 }
 
-Context& Context::swapBuffers() {
+Context &Context::swapBuffers(FrameBuffer &framebuffer) {
+    getMainFrameBuffer().copy(framebuffer);
     context->swapBuffers();
     return *this;
 }

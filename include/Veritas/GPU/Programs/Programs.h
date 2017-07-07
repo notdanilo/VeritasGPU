@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Program.h"
+
 #include "RasterProgram.h"
 
 #include "ClearProgram.h"

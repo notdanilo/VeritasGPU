@@ -1,14 +1,14 @@
 #pragma once
 
-#include <Veritas/Data/String.h>
-#include "../Resource.h"
+#include <Veritas/GPU/Resource.h>
+#include <string>
 
 namespace Veritas {
     namespace GPU {
         namespace Programs {
             class VertexProgram : public Resource {
                 public:
-                    VertexProgram(const Data::String& code);
+                    VertexProgram(const std::string& code);
                     ~VertexProgram();
             };
         }

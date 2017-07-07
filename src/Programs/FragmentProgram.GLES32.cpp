@@ -6,19 +6,19 @@ using namespace Veritas;
 using namespace GPU;
 using namespace Programs;
 
-using namespace Data;
+using std::string;
 
 #include <iostream>
 
-uint32 createFragmentShaderProgram(const String& icode) {
-    String code = String("#version 320 es\n")
+uint32 createFragmentShaderProgram(const string& icode) {
+    string code = string("#version 320 es\n")
                 + icode;
 
-    char *source = (char*) code.getBuffer().getData();
+    const char *source = code.c_str();
     return glCreateShaderProgramv(GL_FRAGMENT_SHADER, 1, &source);
 }
 
-FragmentProgram::FragmentProgram(const String &icode) : Resource(createFragmentShaderProgram(icode)) {
+FragmentProgram::FragmentProgram(const string &icode) : Resource(createFragmentShaderProgram(icode)) {
     int32 linked;
     glGetProgramiv(getID(), GL_LINK_STATUS, &linked);
     if (!linked) {

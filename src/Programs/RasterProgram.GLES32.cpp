@@ -6,8 +6,6 @@ using namespace Veritas;
 using namespace GPU;
 using namespace Programs;
 
-using namespace Data;
-
 #include <iostream>
 
 uint32 createProgramPipeline() {
@@ -16,7 +14,7 @@ uint32 createProgramPipeline() {
     return program;
 }
 
-RasterProgram::RasterProgram(const VertexProgram& vp, const FragmentProgram &fp) : Resource(createProgramPipeline()), vp(vp), fp(fp) {
+RasterProgram::RasterProgram(const VertexProgram& vp, const FragmentProgram &fp) : Program(createProgramPipeline()), vp(vp), fp(fp) {
     glUseProgramStages(getID(), GL_VERTEX_SHADER_BIT, vp.getID());
     glUseProgramStages(getID(), GL_FRAGMENT_SHADER_BIT, fp.getID());
 
@@ -36,10 +34,15 @@ RasterProgram::~RasterProgram() {
     glDeleteProgramPipelines(1, &getID());
 }
 
-void RasterProgram::points(FrameBuffer& fb, uint32 npoints, bool depthTesting, Bindings bps) {
+#include <cassert>
+
+void RasterProgram::points(FrameBuffer& fb, uint32 npoints, bool depthTesting, const Bindings &bps) {
     glBindFramebuffer(GL_FRAMEBUFFER, fb.getID());
 
+    assert(!glGetError() && "Teste 1");
+
     glBindProgramPipeline(getID());
+    assert(!glGetError() && "Teste 2");
     for (auto bp : bps) bp.bind();
 
     if (depthTesting) glEnable(GL_DEPTH_TEST);
@@ -54,7 +57,7 @@ void RasterProgram::points(FrameBuffer& fb, uint32 npoints, bool depthTesting, B
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void RasterProgram::lines(FrameBuffer& fb, uint32 nlines, bool depthTesting, Bindings bps) {
+void RasterProgram::lines(FrameBuffer& fb, uint32 nlines, bool depthTesting, const Bindings &bps) {
     glBindFramebuffer(GL_FRAMEBUFFER, fb.getID());
 
     glBindProgramPipeline(getID());
@@ -72,7 +75,7 @@ void RasterProgram::lines(FrameBuffer& fb, uint32 nlines, bool depthTesting, Bin
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void RasterProgram::lines(FrameBuffer& fb, uint32 nlines, bool depthTesting, const IndexBinding &indices, Bindings bps) {
+void RasterProgram::lines(FrameBuffer& fb, uint32 nlines, bool depthTesting, const IndexBinding &indices, const Bindings &bps) {
     glBindFramebuffer(GL_FRAMEBUFFER, fb.getID());
 
     glBindProgramPipeline(getID());
@@ -99,7 +102,7 @@ void RasterProgram::lines(FrameBuffer& fb, uint32 nlines, bool depthTesting, con
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void RasterProgram::triangles(FrameBuffer& fb, uint32 ntriangles, bool depthTesting, bool faceCulling, const IndexBinding &indices, Bindings bps) {
+void RasterProgram::triangles(FrameBuffer& fb, uint32 ntriangles, bool depthTesting, bool faceCulling, const IndexBinding &indices, const Bindings& bps) {
     glBindFramebuffer(GL_FRAMEBUFFER, fb.getID());
 
     glBindProgramPipeline(getID());

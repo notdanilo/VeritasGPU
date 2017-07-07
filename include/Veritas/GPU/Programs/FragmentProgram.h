@@ -1,14 +1,14 @@
 #pragma once
 
-#include <Veritas/Data/String.h>
-#include "../Resource.h"
+#include <Veritas/GPU/Resource.h>
+#include <string>
 
 namespace Veritas {
     namespace GPU {
         namespace Programs {
             class FragmentProgram : public Resource {
                 public:
-                    FragmentProgram(const Data::String& code);
+                    FragmentProgram(const std::string& code);
                     ~FragmentProgram();
                 private:
                     friend class RenderProgram;

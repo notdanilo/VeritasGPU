@@ -50,3 +50,16 @@ void FrameBuffer::setStencilBuffer(Texture2D &texture) {
 Texture2D* FrameBuffer::getColorBuffer() const { return colorBuffer; }
 Texture2D* FrameBuffer::getDepthBuffer() const { return depthBuffer; }
 Texture2D* FrameBuffer::getStencilBuffer() const { return stencilBuffer; }
+
+void FrameBuffer::copy(const FrameBuffer &framebuffer) {
+    glBindFramebuffer(GL_READ_FRAMEBUFFER, framebuffer.getID());
+    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, getID());
+
+    glBlitFramebuffer(0, 0, framebuffer.getWidth(), framebuffer.getHeight(),
+                      0, 0, getWidth(), getHeight(),
+                      GL_COLOR_BUFFER_BIT,
+                      GL_LINEAR);
+
+    glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
+    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+}

@@ -7,7 +7,7 @@ using namespace Textures;
 
 #define GLSL(...) #__VA_ARGS__
 
-VoxelProgram::VoxelProgram() {
+VoxelProgram::VoxelProgram() : Program(0) {
     fp = new FragmentProgram(GLSL(
         precision highp float;
 

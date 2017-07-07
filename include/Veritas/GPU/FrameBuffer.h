@@ -11,6 +11,9 @@ namespace Veritas {
                 FrameBuffer(uint32 width, uint32 height);
                 ~FrameBuffer();
 
+                // It's only copying the colorbuffer
+                void copy(const FrameBuffer& framebuffer);
+
                 uint32 getWidth() const;
                 uint32 getHeight() const;
 

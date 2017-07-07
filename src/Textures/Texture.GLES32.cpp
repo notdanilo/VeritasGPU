@@ -2,6 +2,8 @@
 
 #include <GLES3/gl32.h>
 
+#include <cassert>
+
 using namespace Veritas;
 using namespace GPU;
 using namespace Textures;
@@ -17,7 +19,10 @@ Texture::Texture(ELEMENTS elements, TYPE type, SPACE space)
     , elements(elements)
     , type(type)
     , space(space)
-{}
+{
+    assert(!(elements == DEPTH && type == UINT8));
+    assert(!(elements == DEPTH && type == UINT32));
+}
 Texture::~Texture() {
     glDeleteTextures(1, &getID());
 }
@@ -41,8 +46,8 @@ uint32 Texture::getDataType() const {
 //        case INT16: return GL_SHORT;
 //        case INT32: return GL_INT;
         case UINT8: return GL_UNSIGNED_BYTE;
-//        case UINT16: return GL_UNSIGNED_SHORT;
-//        case UINT32: return GL_UNSIGNED_INT;
+        case UINT16: return GL_UNSIGNED_SHORT;
+        case UINT32: return GL_UNSIGNED_INT;
     }
 }
 
@@ -50,8 +55,15 @@ uint32 Texture::getDataType() const {
 uint32 Texture::getInternalFormat() const {
     static std::map<std::pair<uint32, uint32>, uint32> map = {
         { { DEPTH, FLOAT32 }, GL_DEPTH_COMPONENT32F },
+        { { DEPTH, UINT16 }, GL_DEPTH_COMPONENT16 },
         { { RGB, FLOAT32 }, GL_RGB32F },
-        { { RGBA, FLOAT32 }, GL_RGBA32F }
+        { { RGB, UINT8 }, GL_RGB8 },
+        { { RGB, UINT16 }, GL_RGB16UI },
+        { { RGB, UINT32 }, GL_RGB32UI },
+        { { RGBA, FLOAT32 }, GL_RGBA32F },
+        { { RGBA, UINT8 }, GL_RGBA8 },
+        { { RGBA, UINT16 }, GL_RGBA16UI },
+        { { RGBA, UINT32 }, GL_RGBA32UI }
     };
     return map[{ elements, type }];
 }

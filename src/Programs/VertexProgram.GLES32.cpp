@@ -2,25 +2,25 @@
 
 #include <GLES3/gl32.h>
 
+#include <iostream>
+
 using namespace Veritas;
 using namespace GPU;
 using namespace Programs;
 
-using namespace Data;
+using std::string;
 
-#include <iostream>
-
-uint32 createVertexShaderProgram(const String& icode) {
-    String code = String("#version 320 es\n")
+uint32 createVertexShaderProgram(const string& icode) {
+    string code = string("#version 320 es\n")
                 #warning https://stackoverflow.com/questions/5366416/in-opengl-es-2-0-glsl-where-do-you-need-precision-specifiers
                 // + String("precision highp float;")
                 + icode;
 
-    char *source = (char*) code.getBuffer().getData();
+    const char *source = code.c_str();
     return glCreateShaderProgramv(GL_VERTEX_SHADER, 1, &source);
 }
 
-VertexProgram::VertexProgram(const String &icode) : Resource(createVertexShaderProgram(icode)) {
+VertexProgram::VertexProgram(const string &icode) : Resource(createVertexShaderProgram(icode)) {
     int32 linked;
     glGetProgramiv(getID(), GL_LINK_STATUS, &linked);
     if (!linked) {
