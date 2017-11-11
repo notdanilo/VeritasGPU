@@ -6,6 +6,7 @@
 #include "Textures/Textures.h"
 
 #include "FrameBuffer.h"
+#include "SwapChain.h"
 
 #include "BufferBinding.h"
 #include "VertexBinding.h"
