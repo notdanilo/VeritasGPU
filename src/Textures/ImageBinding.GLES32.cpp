@@ -1,6 +1,6 @@
 #include <Veritas/GPU/Textures/ImageBinding.h>
 
-#include <GLES3/gl32.h>
+#include <Veritas/GPU/Definitions.h>
 
 using namespace Veritas;
 using namespace GPU;

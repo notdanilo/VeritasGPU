@@ -1,6 +1,6 @@
 #include <Veritas/GPU/Programs/FragmentProgram.h>
 
-#include <GLES3/gl32.h>
+#include <Veritas/GPU/Definitions.h>
 
 using namespace Veritas;
 using namespace GPU;
@@ -24,9 +24,10 @@ FragmentProgram::FragmentProgram(const string &icode) : Resource(createFragmentS
     if (!linked) {
         int length;
         glGetProgramiv(getID(), GL_INFO_LOG_LENGTH, &length);
-        char log[length];
+        char *log = new char[length];
         glGetProgramInfoLog(getID(), length, &length, log);
         std::cerr << log << std::endl;
+        delete[] log;
     }
 }
 

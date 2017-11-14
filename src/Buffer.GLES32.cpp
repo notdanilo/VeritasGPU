@@ -1,6 +1,5 @@
+#include <Veritas/GPU/Definitions.h>
 #include <Veritas/GPU/Buffer.h>
-
-#include <GLES3/gl32.h>
 #include <cstring>
 
 using namespace Veritas::GPU;

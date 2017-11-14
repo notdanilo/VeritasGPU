@@ -1,7 +1,7 @@
 #include <Veritas/GPU/Context.h>
 #include <Veritas/Definitions/Definitions.h>
 
-#include <GLES3/gl32.h>
+#include <Veritas/GPU/Definitions.h>
 
 using namespace Veritas;
 using namespace GPU;
@@ -13,15 +13,16 @@ using std::string;
 Context::Context(uint64 windowHandle, const string &version) :
     framebuffer(0)
 {
-    context = new OpenGLESContext(windowHandle, 3, 2);
-    OpenGLESContext::push();
+    //context = new OpenGLESContext(windowHandle, 3, 2);
+    context = new OpenGLContext(windowHandle, 4, 5);
+    OpenGLContext::push();
 
     makeCurrent();
     GLint dim[4] = { 0 };
     glGetIntegerv(GL_VIEWPORT, dim);
     framebuffer = new FrameBuffer(0, dim[2], dim[3]);
 
-    OpenGLESContext::pop();
+    OpenGLContext::pop();
 }
 Context::Context(Context &&move)
     : framebuffer(move.framebuffer)
