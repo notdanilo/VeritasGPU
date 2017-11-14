@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Veritas/OpenGL/OpenGLESContext.h>
+#include <Veritas/OpenGL/OpenGLContext.h>
 
 #include <Veritas/GPU/FrameBuffer.h>
 
@@ -23,7 +23,7 @@ namespace Veritas {
             private:
                 FrameBuffer& getMainFrameBuffer();
 
-                OpenGL::OpenGLESContext* context;
+                OpenGL::OpenGLContext* context;
                 FrameBuffer* framebuffer;
         };
     }

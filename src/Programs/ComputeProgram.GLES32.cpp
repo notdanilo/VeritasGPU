@@ -1,8 +1,6 @@
 #include <Veritas/GPU/Programs/ComputeProgram.h>
 
-#include <GLES3/gl32.h>
-
-#include <iostream>
+#include <Veritas/GPU/Definitions.h>
 
 using namespace Veritas;
 using namespace GPU;
@@ -11,6 +9,7 @@ using namespace Programs;
 
 using namespace Math;
 
+#include <iostream>
 using std::string;
 
 uint32 createComputeShaderProgram(const string& icode) {
@@ -27,9 +26,10 @@ ComputeProgram::ComputeProgram(const string &icode) : Program(createComputeShade
     if (!linked) {
         int length;
         glGetProgramiv(getID(), GL_INFO_LOG_LENGTH, &length);
-        char log[length];
+        char* log = new char[length];
         glGetProgramInfoLog(getID(), length, &length, log);
         std::cerr << log << std::endl;
+        delete[] log;
     }
 
     glGetProgramiv(getID(), GL_COMPUTE_WORK_GROUP_SIZE, (int32*) &groupSize);

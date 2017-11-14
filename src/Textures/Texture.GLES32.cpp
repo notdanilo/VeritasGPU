@@ -1,6 +1,6 @@
 #include <Veritas/GPU/Textures/Texture.h>
 
-#include <GLES3/gl32.h>
+#include <Veritas/GPU/Definitions.h>
 
 #include <cassert>
 

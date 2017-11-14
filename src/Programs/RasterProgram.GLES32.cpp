@@ -1,6 +1,6 @@
 #include <Veritas/GPU/Programs/RasterProgram.h>
 
-#include <GLES3/gl32.h>
+#include <Veritas/GPU/Definitions.h>
 
 using namespace Veritas;
 using namespace GPU;
@@ -24,9 +24,10 @@ RasterProgram::RasterProgram(const VertexProgram& vp, const FragmentProgram &fp)
     if (!valid) {
         int32 length;
         glGetProgramPipelineiv(getID(), GL_INFO_LOG_LENGTH, &length);
-        char log[length];
+        char *log = new char[length];
         glGetProgramPipelineInfoLog(getID(), length, &length, log);
         std::cerr << log << std::endl;
+        delete[] log;
     }
 }
 
@@ -34,15 +35,10 @@ RasterProgram::~RasterProgram() {
     glDeleteProgramPipelines(1, &getID());
 }
 
-#include <cassert>
-
 void RasterProgram::points(FrameBuffer& fb, uint32 npoints, bool depthTesting, const Bindings &bps) {
     glBindFramebuffer(GL_FRAMEBUFFER, fb.getID());
 
-    assert(!glGetError() && "Teste 1");
-
     glBindProgramPipeline(getID());
-    assert(!glGetError() && "Teste 2");
     for (auto bp : bps) bp.bind();
 
     if (depthTesting) glEnable(GL_DEPTH_TEST);
