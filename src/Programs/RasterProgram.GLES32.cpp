@@ -43,7 +43,11 @@ void RasterProgram::points(FrameBuffer& fb, uint32 npoints, bool depthTesting, c
 
     if (depthTesting) glEnable(GL_DEPTH_TEST);
 
+    glEnable(GL_PROGRAM_POINT_SIZE);
+
     glDrawArrays(GL_POINTS, 0, npoints);
+
+    glDisable(GL_PROGRAM_POINT_SIZE);
 
     if (depthTesting) glDisable(GL_DEPTH_TEST);
 
