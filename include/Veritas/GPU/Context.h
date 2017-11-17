@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Veritas/OpenGL/OpenGLContext.h>
+#include <Veritas/OpenGL/OpenGL.h>
 
 #include <Veritas/GPU/FrameBuffer.h>
 
@@ -16,14 +16,14 @@ namespace Veritas {
                 ~Context();
 
                 void operator=(Context&& move);
-                void operator=(const Context& copy);
+                void operator=(const Context& copy) = delete;
 
                 Context& makeCurrent();
                 Context& swapBuffers(FrameBuffer& framebuffer);
             private:
                 FrameBuffer& getMainFrameBuffer();
 
-                OpenGL::OpenGLContext* context;
+                OpenGL::IOpenGLContext* context;
                 FrameBuffer* framebuffer;
         };
     }
